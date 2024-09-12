@@ -54,13 +54,12 @@ class DoubleLinked:
         return self.counter
     
     def addIndex(self, index, newValue):
-        # BLMMMMM
         # Summary
-        # Buat iterasi sampe index yg dimau -1 (karena mau akses nextnya Node sebelum index Node baru)
-        # Buat temp untuk Node di posisi index yg mau ditambahkan (supaya nanti digeser)
-        # Buat Node pada posisi yg dimau jadi Node baru
-        # Buat nextnya Node baru jadi Node lama yg di temp tadi
-        # Add Counter, return counter
+        # Buat iterasi sampe index yg dimau, setor Node yang di index jadi temp
+        # Buat new Node, isi nextnya dari temp yang dibuat tadi
+        # Buat iterasi sampe index-1 yg dimau buat ubah next dari Node sblm index yg ditambah
+        # Ubah prevnya Node baru & nextnya Node index-1
+        # Add Counter, return Counter
         # <--- Klo index =  0 artinya dia lgsg front, jadi lgsg call function addFront aja --->
 
         tempIteration = self.front
@@ -69,18 +68,19 @@ class DoubleLinked:
         elif index == self.counter-1:
             self.addBack(newValue)
         else:
-            # Akses Node yang sebelum dimau supaya Nextnya dibikin Node yang baru
-            # index = Berapa kali dibutuhin ke index yg dimau - front (1) 
-            for i in range(index-2):
+            # Akses yang index yang dimau jadi temp n ubah previous e jadi Node baru
+            for i in range(index):
                 tempIteration = tempIteration.next
-                # Buat yg dimau jadi temp
-            
-            # tempNode = tempIteration.next
-            # # Buat yang dimau jadi Node value Baru
-            # tempIteration.next = Node(newValue)
-            # tempIteration.next.prev =  tempIteration
-            # # Buat nextnya node Baru jadi tempNode
-            # tempIteration.next.next = tempNode
+            # Buat new Node, isi nextnya baru prevnya
+            tempNode = Node(newValue)
+            tempNode.next = tempIteration
+            tempIteration.prev = tempNode
+            # Akses index sebelum yang dimau supaya ubah nextnya jadi temp
+            tempIteration = self.front
+            for i in range(index-1):
+                tempIteration = tempIteration.next
+            tempNode.prev = tempIteration
+            tempIteration.next = tempNode
             self.counter+=1
         
         return self.counter
@@ -89,10 +89,11 @@ class DoubleLinked:
     def addBack(self, newValue):
         # Summary
         # Temp Node baru
-        # Bkin iterasi dari front to back
-        # Prevnya Node baru = akhir
-        # Nextnya akhir = Node baru
+        # Bkin iterasi dari front to back (akhir)
+        # Prevnya Node baru = Node akhir yg lama
+        # Nextnya Node akhir yg lama = Node baru
         # Add Counter, return counter
+
         tempNode = Node(newValue)
         tempIteration = self.front
         for i in range(self.counter-1):
@@ -112,18 +113,24 @@ class DoubleLinked:
         return self.counter
     
     def delIndex(self, index):
-        # BLMMMMMM
+        # Summary
+        # Buat iterasi sampe index yang dimau buat store nextnya yg mau dihapus, temp Node next tsb
+        # Buat iterasi ulang dari front sampe index-1 yang dimau supaya ngubah next sebelum Node yg dihapus jadi temp tadi
+        # Kurangi Counter, return Counter
+        
         if index == 0:
             self.delFront()
         elif index == self.counter-1:
             self.delBack()
         else:
             tempIteration = self.front
+            for i in range(index):
+                    tempIteration = tempIteration.next
+            tempNode = tempIteration.next
+            tempIteration = self.front
             for i in range(index-1):
                 tempIteration = tempIteration.next
-            # tempNode = tempIteration.next
-            # tempIteration.next = tempNode.next
-            tempIteration.next.next
+            tempIteration.next = tempNode
             self.counter -=1
         return self.counter
     
@@ -146,12 +153,12 @@ x = list.addFront("Node 1")
 x = list.addFront("Node 3")
 x = list.addBack("Node 9")
 # x = list.addFront("Node 2")
-# x = list.addIndex(1, "Node 9")
-# x = list.delIndex(2)
+x = list.addIndex(1, "Node 5")
+x = list.delIndex(2)
 
 list.show()
 
 # Notes:
 # Klo yg ga berhubungan lgsg sama front (di index tertentu/back),
 # Loop sampe index di posisi -1 sebelum yg dimau buat ngedit nextnya Node sebelumnya
-# Double Fron & Back sama utk delete
+# Double front, index, back, sama utk delete

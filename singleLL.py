@@ -16,7 +16,7 @@ class SingleLinked:
         # Buat tampilan ✓
         # Buat add di depan ✓, belakang ✓, dan index tertentu ✓
         # [ada dua cara, yg di temp Node baru / yg di temp Node yg mau diubah]
-        # Buat hapus pada depan ✓, belakang ✓, dan index tertentu
+        # Buat hapus pada depan ✓, belakang ✓, dan index tertentu ✓ 
 
     def show(self):
         temp  = self.front
