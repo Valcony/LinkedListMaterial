@@ -93,7 +93,10 @@ class SingleLinked:
         return self.counter
     
     def delIndex(self, index):
-        # Masi gabisa mbo
+        # Summary
+        # Buat iterasi sampe index yang dimau buat store nextnya yg mau dihapus, temp Node next tsb
+        # Buat iterasi ulang dari front sampe index-1 yang dimau supaya ngubah next sebelum Node yg dihapus jadi temp tadi
+        # Kurangi Counter, return Counter
         if index == 0:
             self.delFront()
         elif index == self.counter-1:
