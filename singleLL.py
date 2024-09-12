@@ -96,16 +96,17 @@ class SingleLinked:
         # Masi gabisa mbo
         if index == 0:
             self.delFront()
-        elif index == self.counter:
+        elif index == self.counter-1:
             self.delBack()
         else:
             tempIteration = self.front
-            for i in range(self.counter-index+1):
-                if i == index-1:
-                    tempNode = tempIteration.next
-                else:
+            for i in range(index):
                     tempIteration = tempIteration.next
-            tempIteration.next = tempNode.next
+            tempNode = tempIteration.next
+            tempIteration = self.front
+            for i in range(index-1):
+                tempIteration = tempIteration.next
+            tempIteration.next = tempNode
             self.counter -=1
         return self.counter
     
@@ -128,7 +129,7 @@ x = list.addFront("Node 1")
 x = list.addFront("Node 3")
 x = list.addBack("Node 9")
 x = list.addFront("Node 2")
-x = list.addIndex(1, "Node 8")
+# x = list.addIndex(1, "Node 8")
 x = list.delIndex(2)
 
 list.show()
