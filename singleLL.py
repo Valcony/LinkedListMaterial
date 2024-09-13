@@ -28,6 +28,12 @@ class SingleLinked:
             else:
                 print(" ----> None")
             temp = temp.next
+        # Klo ga pake counter
+        # temp = self.head
+        # while temp.next != None:
+        #   print(temp.data, "---> ", end="")
+        #   temp = temp.next
+        # print(temp.data)
     
     def addFront(self, newValue):
         # Summary
@@ -81,6 +87,10 @@ class SingleLinked:
         for i in range(self.counter-1):
             tempIteration = tempIteration.next
         tempIteration.next = tempNode
+        # Klo gapake Counter
+        #  while(temp.next != None):
+            # temp = temp.next
+        # temp.next = Node(data)
         self.counter += 1
         return self.counter
     
