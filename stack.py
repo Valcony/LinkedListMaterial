@@ -49,6 +49,25 @@ class Stack():
       return True
     else:
       return False
+        
+  def peek(self):
+    if self.head == None:
+      return None
+    else:
+      return self.head.data
+  
+  def sort(self):
+    temp = Stack()
+    while not self.isEmpty():
+     curr = self.pop()
+     while not temp.isEmpty() and (temp.head.data < curr):
+       self.push(temp.pop())
+     temp.push(curr)
+    self.head = temp.head
+
+  def pushSort(self, val):
+    self.push(val)
+    self.sort()
 
 # Soal 1
 
