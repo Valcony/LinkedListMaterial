@@ -96,3 +96,20 @@ for i in (text):
     itung.push(i)
 itung.printStack()
 infixSum(itung)
+
+
+
+insert = input("Input: ")
+text = ""
+while insert != ',':
+  text += insert
+  itung = Stack()
+  for i in (text):
+      itung.push(i)
+  itung.printStack()
+  try:
+      result = infixSum(itung)
+      print("Result:", result)
+  except TypeError as e:
+      print("Error")
+  insert = input("Input: ")
