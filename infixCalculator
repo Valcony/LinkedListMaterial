@@ -2,6 +2,9 @@
 # Infix Postfix Prefix
 
 
+# Infix Postfix Prefix
+
+
 
 def precedence(val):
   if val == ')':
@@ -67,7 +70,7 @@ def infixSum(stack):
                     opr = tempOpr.pop()
                     num2 = int(tempNum.pop())
                     num1 = int(tempNum.pop())
-                    result = operasi(opr, num1, num2)
+                    result = operasi(opr, num2, num1)
                     tempNum.push(result)
                 tempOpr.push(curr)
         else:
@@ -87,7 +90,7 @@ def infixSum(stack):
 
 
 # textbase = input("Infix: ")
-text = "3*(6/2)-(4+8)"
+text = "3*(6/2)-(4+8)^2"
 itung = Stack()
 for i in (text):
     itung.push(i)
