@@ -7,7 +7,7 @@ class Node:
         self.prev = None
 
 class DoubleLinked:
-    def __init__(self, max):
+    def __init__(self):
         # Front reference to 1st Node
         # Counter gunanya buat pengecekan length dlm list
         self.front = None
@@ -68,10 +68,10 @@ class DoubleLinked:
         elif index == self.counter-1:
             self.addBack(newValue)
         else:
-            # Akses yang index yang dimau jadi temp n ubah previous e jadi Node baru
+            # Akses index yang dimau jadi temp n, ubah previous e jadi Node baru
             for i in range(index):
                 tempIteration = tempIteration.next
-            # Buat new Node, isi nextnya baru prevnya
+            # Buat new Node, isi next baru prevnya
             tempNode = Node(newValue)
             tempNode.next = tempIteration
             tempIteration.prev = tempNode
@@ -100,7 +100,7 @@ class DoubleLinked:
             tempIteration = tempIteration.next
         tempNode.prev = tempIteration
         tempIteration.next = tempNode
-        
+        self.back = tempNode
         self.counter += 1
         return self.counter
     
@@ -123,14 +123,27 @@ class DoubleLinked:
         elif index == self.counter-1:
             self.delBack()
         else:
-            tempIteration = self.front
-            for i in range(index):
-                    tempIteration = tempIteration.next
-            tempNode = tempIteration.next
-            tempIteration = self.front
-            for i in range(index-1):
-                tempIteration = tempIteration.next
-            tempIteration.next = tempNode
+          tempIteration = self.front
+          for i in range(index):
+              tempIteration = tempIteration.next
+          nodeAfter = tempIteration.next
+          nodeBefore = tempIteration.prev
+          if nodeAfter != None:
+            nodeAfter.prev = nodeBefore
+          if nodeBefore != None:
+            nodeBefore.next = nodeAfter
+
+          # Cara lain
+            # tempIteration = self.front
+            # for i in range(index):
+            #         tempIteration = tempIteration.next
+            # tempNode = tempIteration.next
+
+            # tempIteration = self.front
+            # for i in range(index-1):
+            #     tempIteration = tempIteration.next
+            # tempIteration.next = tempNode
+            # tempNode.prev = tempIteration
             self.counter -=1
         return self.counter
     
@@ -145,18 +158,33 @@ class DoubleLinked:
         self.counter -= 1
         return self.counter
 
+    def reverse(self):
+      temp = self.back
+      while temp.prev != None:
+        if temp.next != None:
+          print(temp.next.item, "<---", end=" ")
+        else:
+          print("None <---", end=" ")
+        print(temp.item, "--->", temp.prev.item, end=" ")
+        temp = temp.prev
+        print()
+      print(self.front.next.item, "<---", end=" ")
+      print(self.front.item, "---> None")
+
         
     
 
-list = DoubleLinked(0)
+list = DoubleLinked()
 x = list.addFront("Node 1")
 x = list.addFront("Node 3")
 x = list.addBack("Node 9")
 # x = list.addFront("Node 2")
 x = list.addIndex(1, "Node 5")
 x = list.delIndex(2)
+x = list.reverse()
 
-list.show()
+# list.show()
+
 
 # Notes:
 # Klo yg ga berhubungan lgsg sama front (di index tertentu/back),
