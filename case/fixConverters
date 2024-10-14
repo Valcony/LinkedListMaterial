@@ -1,0 +1,91 @@
+def infixToPostfix(infix):
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+    output = []
+    stack = Stack()
+
+    for char in infix:
+        if char.isalnum():  # Operand
+            output.append(char)
+        elif char == '(':  # Left Parenthesis
+            stack.push(char)
+        elif char == ')':  # Right Parenthesis
+            while not stack.isEmpty() and stack.peek() != '(':
+                output.append(stack.pop())
+            stack.pop()  # Remove '('
+        else:  # Operator
+            while (not stack.isEmpty() and stack.peek() != '(' and 
+                   precedence[char] <= precedence[stack.peek()]):
+                output.append(stack.pop())
+            stack.push(char)
+
+    # Pop remaining operators
+    while not stack.isEmpty():
+        output.append(stack.pop())
+
+    return ''.join(output)
+
+def postfixToPrefix(postfix):
+    stack = Stack()
+    
+    for char in postfix:
+        if char.isalnum():  # Operand
+            stack.push(char)
+        else:  # Operator
+            op1 = stack.pop()
+            op2 = stack.pop()
+            new_expr = char + op2 + op1
+            stack.push(new_expr)
+
+    return stack.pop()
+
+def postfixToInfix(postfix):
+    stack = Stack()
+    
+    for char in postfix:
+        if char.isalnum():  # Operand
+            stack.push(char)
+        else:  # Operator
+            op1 = stack.pop()
+            op2 = stack.pop()
+            new_expr = '(' + op2 + char + op1 + ')'
+            stack.push(new_expr)
+
+    return stack.pop()
+
+def prefixToInfix(prefix):
+    stack = Stack()
+    
+    for char in reversed(prefix):
+        if char.isalnum():  # Operand
+            stack.push(char)
+        else:  # Operator
+            op1 = stack.pop()
+            op2 = stack.pop()
+            new_expr = '(' + op1 + char + op2 + ')'
+            stack.push(new_expr)
+
+    return stack.pop()
+
+def infixToPrefix(infix):
+    infix = infix[::-1]
+    infix = ''.join([')' if char == '(' else '(' if char == ')' else char for char in infix])
+    postfix = infixToPostfix(infix)
+    return postfix[::-1]
+
+
+infix = "A+B*(C^D-E)"
+postfix = infixToPostfix(infix)
+print("Infix to Postfix:", postfix)
+    
+prefix_from_infix = infixToPrefix(infix)
+print("Infix to Prefix:", prefix_from_infix)
+
+prefix = postfixToPrefix(postfix)
+print("Postfix to Prefix:", prefix)
+
+infix_from_postfix = postfixToInfix(postfix)
+print("Postfix to Infix:", infix_from_postfix)
+
+infix_from_prefix = prefixToInfix(prefix)
+print("Prefix to Infix:", infix_from_prefix)
+
