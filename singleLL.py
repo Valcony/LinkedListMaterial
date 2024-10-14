@@ -6,7 +6,7 @@ class Node:
         self.next = None
 
 class SingleLinked:
-    def __init__(self, max):
+    def __init__(self):
         # Front reference to 1st Node
         # Counter gunanya buat pengecekan length dlm list
         self.front = None
@@ -19,21 +19,23 @@ class SingleLinked:
         # Buat hapus pada depan ✓, belakang ✓, dan index tertentu ✓ 
 
     def show(self):
-        temp  = self.front
-        for i in range(self.counter):
-            # Klo i ga punya next brarti next  = none
-            print(temp.item, end="")
-            if (temp.next != None):
-                print(" ----> "+temp.next.item)
-            else:
-                print(" ----> None")
-            temp = temp.next
+        # temp  = self.front
+        # for i in range(self.counter):
+        #     # Klo i ga punya next brarti next  = none
+        #     print(temp.item, end="")
+        #     if (temp.next != None):
+        #         print(" ----> "+temp.next.item)
+        #     else:
+        #         print(" ----> None")
+        #     temp = temp.next
+        
         # Klo ga pake counter
-        # temp = self.head
-        # while temp.next != None:
-        #   print(temp.data, "---> ", end="")
-        #   temp = temp.next
-        # print(temp.data)
+        temp = self.front
+        while temp.next != None:
+          print(temp.item, "---> ", end="")
+          temp = temp.next
+        print(temp.item, end="")
+        print(" ----> None")
     
     def addFront(self, newValue):
         # Summary
@@ -134,20 +136,37 @@ class SingleLinked:
         self.counter -= 1
         return self.counter
 
+    def sumAdd(self):
+      # Iterasi penambahan semua elemen
+      temp = self.front
+      sum = 0
+      while temp.next:
+        sum += int(temp.item)
+        temp = temp.next
+      sum += int(temp.item)
+      return sum
+
+    def sumSub(self):
+      # Iterasi pengurangan semua elemen
+      temp = self.front
+      sum = 0
+      while temp.next:
+        sum -= int(temp.item)
+        temp = temp.next
+      sum -= int(temp.item)
+      return sum
+
         
     
 
 list = SingleLinked(0)
-x = list.addFront("Node 1")
-x = list.addFront("Node 3")
-x = list.addBack("Node 9")
-x = list.addFront("Node 2")
+x = list.addFront("1")
+x = list.addFront("3")
+x = list.addBack("9")
+x = list.addFront("2")
 # x = list.addIndex(1, "Node 8")
 x = list.delIndex(2)
 
 list.show()
-print(list.counter)
-
-# Notes:
-# Klo yg ga berhubungan lgsg sama front (di index tertentu/back),
-# Loop sampe index di posisi -1 sebelum yg dimau buat ngedit nextnya Node sebelumnya
+print(list.sumAdd())
+print(list.sumSub())
