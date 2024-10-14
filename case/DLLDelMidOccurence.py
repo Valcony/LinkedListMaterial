@@ -7,6 +7,9 @@ Original file is located at
     https://colab.research.google.com/drive/1AcN3s7bfXRd56Wbv9JS-lClE5nYGBsY8
 """
 
+
+# https://docs.google.com/document/d/1nNM0o3Jq63LG1A5d3T1oRM3DRBQdgvoGdv6mG9suafQ/edit?tab=t.0
+
 class Node():
   def __init__(self, val1, val2):
     self.data = val1
