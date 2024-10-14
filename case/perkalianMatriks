@@ -1,0 +1,51 @@
+import random
+import numpy as np
+
+class MatrixStack:
+    def __init__(self):
+        self.stack = []
+    
+    # Fungsi untuk menambahkan matriks 4x4 ke dalam stack
+    def push(self):
+        matrix = np.random.randint(0, 100, (4, 4))
+        self.stack.append(matrix)
+        print("Matriks baru telah diinsert ke dalam stack:")
+        print(matrix)
+    
+    # Fungsi untuk menghitung perkalian semua matriks di dalam stack
+    def multiply_stack(self):
+        if not self.stack:
+            print("Stack kosong, tidak bisa melakukan operasi perkalian.")
+            return None
+        result = self.stack[-1]
+        for i in range(len(self.stack) - 2, -1, -1):
+            result = np.dot(result, self.stack[i])
+        print("Hasil perkalian semua matriks di stack:")
+        print(result)
+    
+    # Fungsi untuk mengecek apakah stack kosong
+    def is_empty(self):
+        return len(self.stack) == 0
+
+stack = MatrixStack() 
+while True:
+    print("\nMenu:")
+    print("1. Insert matriks ke dalam stack")
+    print("2. Hitung perkalian matriks di dalam stack")
+    print("3. Keluar")
+    
+    choice = input("Pilih opsi (1/2/3): ")
+    
+    if choice == '1':
+        stack.push()
+    elif choice == '2':
+        if stack.is_empty():
+            print("Stack kosong, tidak ada matriks untuk dikalikan.")
+        else:
+            stack.multiply_stack()
+    elif choice == '3':
+        print("Keluar dari program.")
+        break
+    else:
+        print("Pilihan tidak valid. Silakan pilih 1, 2, atau 3.")
+
