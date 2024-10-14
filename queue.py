@@ -7,6 +7,8 @@ Original file is located at
     https://colab.research.google.com/drive/1lViumsbnx055GFobjbxNPNIlUEZcwH4B
 """
 
+# https://docs.google.com/document/d/1aY92rers403xPiYfAJbASbCdTI4YInXPSPfKZQPetPI/edit?tab=t.0
+
 # Soal 1
 from collections import deque
 
