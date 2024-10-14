@@ -1,0 +1,27 @@
+def addSong(title, playlist):
+    if playlist.front == None:
+        playlist.addFront(title)
+        playlist.current = playlist.front
+    else:
+        playlist.addFront(title)
+
+def nextSong(playlist):
+    if playlist.current.next:
+      playlist.current = playlist.current.next
+    else:
+      playlist.current = playlist.front
+    
+
+def prevSong(playlist):
+    if playlist.current.prev:
+      playlist.current = playlist.current.prev
+    else:
+        playlist.current = playlist.current
+
+playlist = DoubleLinked()
+addSong("Close To You", playlist)
+addSong("#DM", playlist)
+addSong("Get Loud", playlist)
+playlist.show()
+playlist.fullRepeat(True)
+playlist.show()
