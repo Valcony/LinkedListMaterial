@@ -1,0 +1,95 @@
+#Pake Stack
+# Infix Postfix Prefix
+
+
+
+def precedence(val):
+  if val == ')':
+    return 4
+  elif val == '^':
+    return 3
+  elif val == '*' or val == '/':
+    return 2
+  elif val == '+' or val == '-':
+    return 1
+  else:
+    return 0
+
+def isOperator(val):
+  if val == '+' or val == '-' or val == '*' or val == '/' or val == '^' or val == '(' or val == ')':
+    return True
+  else:
+    return False
+
+
+def operasi(opr, num1, num2):
+    if opr == '+':
+        return num1 + num2
+    elif opr == '-':
+        return num1 - num2
+    elif opr == '*':
+        return num1 * num2
+    elif opr == '/':
+        return num1 / num2
+    elif opr == '^':
+        return num1 ** num2
+
+# misal 1 + 2*3 + 4
+
+# 4 msk stack, + msk stack, 3 msk stack, * krn lebi besar dri head jadi pop * msk stack operasi yang dipake
+#  "3*(6/2)-(4+8)"
+def infixSum(stack):
+    tempOpr = Stack()
+    tempNum = Stack()
+    # 6 2 12, /, ), -
+    while not stack.isEmpty():
+        curr = stack.pop()
+        if isOperator(curr):
+            if curr == ')':
+                tempOpr.push(curr)
+                while stack.peek() != '(':
+                  if isOperator(stack.peek()):
+                    tempOpr.push(stack.pop())
+                  else:
+                    tempNum.push(stack.pop())
+                stack.pop() #hapus '('
+                while not tempOpr.peek() == ')':
+                    opr = tempOpr.pop()
+                    num2 = int(tempNum.pop())
+                    num1 = int(tempNum.pop())
+                    result = operasi(opr, num2, num1)
+                    tempNum.push(int(result))
+                tempOpr.pop() #hapus ')'
+                # tempNum.printStack()
+            else:
+                while (not tempOpr.isEmpty() and
+                       precedence(tempOpr.peek()) >= precedence(curr)):
+                    opr = tempOpr.pop()
+                    num2 = int(tempNum.pop())
+                    num1 = int(tempNum.pop())
+                    result = operasi(opr, num1, num2)
+                    tempNum.push(result)
+                tempOpr.push(curr)
+        else:
+            # Mengonversi string ke integer
+            tempNum.push(int(curr))
+    # Pop semua operator yang tersisa di stack
+    while not tempOpr.isEmpty():
+        opr = tempOpr.pop()
+        num2 = tempNum.pop()
+        num1 = tempNum.pop()
+        result = operasi(opr, num2, num1)
+        tempNum.push(result)
+    stack.printStack()
+    # Hasil akhir akan menjadi satu-satunya angka yang tersisa di stack tempNum
+    return tempNum.pop()
+
+
+
+# textbase = input("Infix: ")
+text = "3*(6/2)-(4+8)"
+itung = Stack()
+for i in (text):
+    itung.push(i)
+itung.printStack()
+infixSum(itung)
