@@ -156,10 +156,36 @@ class SingleLinked:
       sum -= int(temp.item)
       return sum
 
+    # versi rekursi
+    def sumAdd(self,counter, pointer):
+      if counter == self.counter-1:
+        return int(pointer.item)
+      else:
+        return int(pointer.item) + self.sumAdd(counter+1, pointer.next)
+    
+    def sumSub(self,counter, pointer):
+      if counter == self.counter-1:
+        return int(pointer.item)
+      else:
+        return int(pointer.item) - self.sumAdd(counter+1, pointer.next)
+      
+
+    def reverse(self):
+      temp = self.front
+      tempSLL = SingleLinked()
+      while temp.next:
+        tempSLL.addFront(temp.item)
+        temp = temp.next
+      tempSLL.addFront(temp.item)
+      tempSLL.show()
+        
+      
+
+
         
     
 
-list = SingleLinked(0)
+list = SingleLinked()
 x = list.addFront("1")
 x = list.addFront("3")
 x = list.addBack("9")
@@ -168,5 +194,6 @@ x = list.addFront("2")
 x = list.delIndex(2)
 
 list.show()
-print(list.sumAdd())
-print(list.sumSub())
+counter = 0
+list.reverse()
+print(list.sumSub(counter, list.front))
